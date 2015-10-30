@@ -1,0 +1,7 @@
+.idea
+template/*
+service/logs/*
+*.log
+bower_components/*
+node_modules/*
+

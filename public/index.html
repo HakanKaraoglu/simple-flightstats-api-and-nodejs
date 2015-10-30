@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en" ng-app="mapsApp">
+  <head>
+      <meta charset="utf-8">
+      <title>Search</title>
+      <link rel="stylesheet" type="text/css" href="/components/bootstrap/dist/css/bootstrap.min.css">
+      <link rel="stylesheet" href="/components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+      <link rel="stylesheet" type="text/css" href="/css/style.css">
+      <script type="text/javascript" src="/components/jquery/dist/jquery.min.js"></script>
+      <script type="text/javascript" src="/components/moment/min/moment.min.js"></script>
+      <script type="text/javascript" src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
+      <script type="text/javascript" src="/components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+      <script type="text/javascript" src="/js/app.js"></script>
+      <script type="text/javascript" src="/js/bootstrap.js"></script>
+  </head>
+  <body>
+
+      <div class="container">
+        <div class="page-header">
+          <h4>İstanbul Atatürk Havalimanı <small>Gelen ve giden uçakların tarih ve saat aralıklarına göre listelenmesi</small></h4>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class="form-group">
+              <div class='input-group date' id='datetimepicker'>
+                <input type='text' id='data' class="form-control" />
+                <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-4 text-center">
+            <div class="btn-group" data-toggle="buttons">
+              <label class="btn btn-default active">
+                <input type="radio" name="options" id="arriving" autocomplete="off" checked> Arriving
+              </label>
+              <label class="btn btn-default">
+                <input type="radio" name="options" id="departing" autocomplete="off"> Departing
+              </label>
+            </div>
+          </div>
+          <div class="col-sm-2 text-right">
+            <button type="button" id="searchButton" class="btn btn-primary btn-sg">
+              ARA <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+            </button>
+          </div>
+
+        </div>
+        <div class="row">
+<div class="panel panel-default">
+  <div class="panel-heading">Uçuş listesi</div>
+
+  <table id='flightList' class="table table-striped">
+      <thead>
+        <tr>
+          <th>fs</th>
+          <th>iata</th>
+          <th>icao</th>
+          <th>name</th>
+          <th>city</th>
+          <th>cityCode</th>
+          <th>countryCode</th>
+          <th>countryName</th>
+          <th>regionName</th>
+        </tr>
+      </thead>
+      <tbody>
+        <th>...</th>
+        <th>...</th>
+        <th>...</th>
+        <th>...</th>
+        <th>...</th>
+        <th>...</th>
+        <th>...</th>
+        <th>...</th>
+        <th>...</th>
+      </tbody>
+    </table>
+</div>
+        </div>
+      </div>
+
+
+
+  </body>
+</html>
