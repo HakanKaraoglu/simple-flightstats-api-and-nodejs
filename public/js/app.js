@@ -6,7 +6,8 @@ app.init = function(){
 
 app.dateTimePicker = function(){
   $('#datetimepicker').datetimepicker({
-    format : 'YYYY/MM/DD/HH'
+    format : 'YYYY/MM/DD/HH',
+    defaultDate : new Date()
   });
 };
 
