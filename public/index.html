@@ -1,87 +1,139 @@
 <!doctype html>
 <html lang="en" ng-app="mapsApp">
-  <head>
-      <meta charset="utf-8">
-      <title>Search</title>
-      <link rel="stylesheet" type="text/css" href="/components/bootstrap/dist/css/bootstrap.min.css">
-      <link rel="stylesheet" href="/components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
-      <link rel="stylesheet" type="text/css" href="/css/style.css">
-      <script type="text/javascript" src="/components/jquery/dist/jquery.min.js"></script>
-      <script type="text/javascript" src="/components/moment/min/moment.min.js"></script>
-      <script type="text/javascript" src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
-      <script type="text/javascript" src="/components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-      <script type="text/javascript" src="/js/app.js"></script>
-      <script type="text/javascript" src="/js/bootstrap.js"></script>
-  </head>
-  <body>
+<head>
+    <meta charset="utf-8">
+    <title>Search</title>
+    <link rel="stylesheet" type="text/css" href="/components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="/components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script type="text/javascript" src="/components/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/components/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript"
+            src="/components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="/components/handlebars/handlebars.min.js"></script>
+    <script type="text/javascript" src="/js/app.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.js"></script>
+</head>
+<body>
 
-      <div class="container">
-        <div class="page-header">
-          <h4>İstanbul Atatürk Havalimanı <small>Gelen ve giden uçakların tarih ve saat aralıklarına göre listelenmesi</small></h4>
-        </div>
-        <div class="row">
-          <div class="col-sm-6">
+<div class="container">
+    <div class="page-header">
+        <h4>İstanbul Atatürk Havalimanı
+            <small>Gelen ve giden uçakların tarih ve saat aralıklarına göre listelenmesi</small>
+        </h4>
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
             <div class="form-group">
-              <div class='input-group date' id='datetimepicker'>
-                <input type='text' id='data' class="form-control" />
+                <div class='input-group date' id='datetimepicker'>
+                    <input type='text' id='data' class="form-control"/>
                 <span class="input-group-addon">
                   <span class="glyphicon glyphicon-calendar"></span>
                 </span>
-              </div>
+                </div>
             </div>
-          </div>
-          <div class="col-sm-4 text-center">
+        </div>
+        <div class="col-sm-4 text-center">
             <div class="btn-group" data-toggle="buttons">
-              <label class="btn btn-default active">
-                <input type="radio" name="options" id="arriving" autocomplete="off" checked> Arriving
-              </label>
-              <label class="btn btn-default">
-                <input type="radio" name="options" id="departing" autocomplete="off"> Departing
-              </label>
+                <label class="btn btn-default active">
+                    <input type="radio" name="options" id="arriving" autocomplete="off" checked> Arriving
+                </label>
+                <label class="btn btn-default">
+                    <input type="radio" name="options" id="departing" autocomplete="off"> Departing
+                </label>
             </div>
-          </div>
-          <div class="col-sm-2 text-right">
+        </div>
+        <div class="col-sm-2 text-right">
             <button type="button" id="searchButton" class="btn btn-primary btn-sg">
-              ARA <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                ARA <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
             </button>
-          </div>
-
         </div>
-        <div class="row">
-<div class="panel panel-default">
-  <div class="panel-heading">Uçuş listesi</div>
 
-  <table id='flightList' class="table table-striped">
-      <thead>
-        <tr>
-          <th>fs</th>
-          <th>iata</th>
-          <th>icao</th>
-          <th>name</th>
-          <th>city</th>
-          <th>cityCode</th>
-          <th>countryCode</th>
-          <th>countryName</th>
-          <th>regionName</th>
-        </tr>
-      </thead>
-      <tbody>
-        <th>...</th>
-        <th>...</th>
-        <th>...</th>
-        <th>...</th>
-        <th>...</th>
-        <th>...</th>
-        <th>...</th>
-        <th>...</th>
-        <th>...</th>
-      </tbody>
-    </table>
+    </div>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">Uçuş listesi</div>
+            <div id="airportsTemplate">
+
+            </div>
+        </div>
+    </div>
 </div>
+
+
+<script id="flightList-template" type="text/x-handlebars-template">
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Fs</th>
+            <th>Iata</th>
+            <th>Icao</th>
+            <th>Name</th>
+            <th>City</th>
+            <th>City Code</th>
+            <th>Country Code</th>
+            <th>Country Name</th>
+            <th>Region Name</th>
+            <th>Detail</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#airports}}
+        <tr>
+            <td>{{fs}}</td>
+            <td>{{iata}}</td>
+            <td>{{icao}}</td>
+            <td>{{name}}</td>
+            <td>{{city}}</td>
+            <td>{{cityCode}}</td>
+            <td>{{countryCode}}</td>
+            <td>{{countryName}}</td>
+            <td>{{regionName}}</td>
+            <td>
+                <button type="button" class="btn btn-info" onclick="app.testFunc({{@key}})">Info</button>
+            </td>
+        </tr>
+        {{/airports}}
+        </tbody>
+    </table>
+
+</script>
+
+
+<div class="modal fade" id="detailModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Fly Detail</h4>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li><b>Id :</b><span id="detailId"></span></li>
+                    <li><b>Fs :</b><span id="detailFs"></span></li>
+                    <li><b>Iata :</b><span id="detailIata"></span></li>
+                    <li><b>Icao :</b><span id="detailIcao"></span></li>
+                    <li><b>Name :</b><span id="detailName"></span></li>
+                    <li><b>City :</b><span id="detailCity"></span></li>
+                    <li><b>City Code :</b><span id="detailCityCode"></span></li>
+                    <li><b>Country Code :</b><span id="detailCountryCode"></span></li>
+                    <li><b>Country Name :</b><span id="countryName"></span></li>
+                    <li><b>Region Name :</b><span id="regionName"></span></li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Ok</button>
+            </div>
         </div>
-      </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
 
-
-
-  </body>
+</body>
 </html>
